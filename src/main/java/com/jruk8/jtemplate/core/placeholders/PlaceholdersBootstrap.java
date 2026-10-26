@@ -2,6 +2,7 @@ package com.jruk8.jtemplate.core.placeholders;
 
 import com.jruk8.jtemplate.core.Bootstrap;
 import com.jruk8.jtemplate.core.Reloadable;
+import com.jruk8.jtemplate.core.commands.mode.GameUsageTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,13 +18,13 @@ public final class PlaceholdersBootstrap implements Bootstrap, Reloadable {
 
     private static final String PLACEHOLDER_API_NAME = "PlaceholderAPI";
 
-    private final CommandUsageTracker tracker;
+    private final GameUsageTracker tracker;
     private final JavaPlugin plugin;
     private final Logger logger;
 
-    private UsageExpansion expansion;
+    private GameUsageExpansion expansion;
 
-    public PlaceholdersBootstrap(CommandUsageTracker tracker, JavaPlugin plugin, Logger logger) {
+    public PlaceholdersBootstrap(GameUsageTracker tracker, JavaPlugin plugin, Logger logger) {
         this.tracker = tracker;
         this.plugin = plugin;
         this.logger = logger;
@@ -35,10 +36,10 @@ public final class PlaceholdersBootstrap implements Bootstrap, Reloadable {
             this.logger.info("PlaceholderAPI is not installed; skipping placeholder registration.");
             return;
         }
-        this.expansion = new UsageExpansion(
+        this.expansion = new GameUsageExpansion(
                 this.tracker, this.plugin, name -> Bukkit.getOfflinePlayer(name).getUniqueId());
         if (this.expansion.register()) {
-            this.logger.info("Registered placeholders with identifier '" + UsageExpansion.IDENTIFIER + "'.");
+            this.logger.info("Registered placeholders with identifier '" + GameUsageExpansion.IDENTIFIER + "'.");
         } else {
             unregister();
             this.logger.warning("PlaceholderAPI rejected the expansion registration.");

@@ -1,7 +1,7 @@
 package com.jruk8.jtemplate.core.commands.user.help;
 
 import com.jruk8.jtemplate.core.commands.CommandContext;
-import com.jruk8.jtemplate.core.commands.TemplatePermissions;
+import com.jruk8.jtemplate.core.commands.GameModePermissions;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -14,9 +14,9 @@ import java.util.Map;
 /**
  * Help subcommand that lists the plugin's commands, optionally filtered by a search query.
  * <p>
- * Senders with {@code jtemplate.help} may run it (everyone by default);
- * entries are filtered by permission. Entries use the main {@code /jt}
- * alias.
+ * Senders with {@code jgamemode.help} may run it (everyone by default);
+ * entries are filtered by permission. Entries use the main {@code /jgm}
+ * alias for hub commands and {@code /gm} for mode commands.
  */
 public class HelpCommand {
 
@@ -29,13 +29,13 @@ public class HelpCommand {
     }
 
     /**
-     * Builds the {@code help} Brigadier node, attached to the {@code jtemplate} root by the registrar.
+     * Builds the {@code help} Brigadier node, attached to the {@code jgamemode} root by the registrar.
      *
      * @return the configured subcommand node
      */
     public LiteralArgumentBuilder<CommandSourceStack> node() {
         return Commands.literal("help")
-                .requires(CommandContext.requiresPermission(TemplatePermissions.HELP))
+                .requires(CommandContext.requiresPermission(GameModePermissions.HELP))
                 .executes(context -> {
                     showHelp(context.getSource(), null);
                     return Command.SINGLE_SUCCESS;
@@ -67,8 +67,16 @@ public class HelpCommand {
 
     private List<HelpEntry> entries() {
         return List.of(
-                new HelpEntry("/jt help [query]", "Shows this help menu."),
-                new HelpEntry("/jt version", "Shows the plugin version.", TemplatePermissions.VERSION),
-                new HelpEntry("/jt reload", "Reloads the plugin configuration.", TemplatePermissions.RELOAD));
+                new HelpEntry("/jgm help [query]", "Shows this help menu."),
+                new HelpEntry("/jgm version", "Shows the plugin version.", GameModePermissions.VERSION),
+                new HelpEntry("/gm [<mode>|toggle] [targets]",
+                        "Sets gamemode, toggles without a mode.", GameModePermissions.USE),
+                new HelpEntry("/gms|c|a|sp [targets]",
+                        "Switches directly to a gamemode.", GameModePermissions.USE),
+                new HelpEntry("/gmt [targets]",
+                        "Toggles between spectator and the last mode.", GameModePermissions.USE),
+                new HelpEntry("/gamemode [<mode>|toggle] [targets]",
+                        "Vanilla gamemode through this plugin.", GameModePermissions.USE),
+                new HelpEntry("/jgm reload", "Reloads the plugin configuration.", GameModePermissions.RELOAD));
     }
 }

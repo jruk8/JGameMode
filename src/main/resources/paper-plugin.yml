@@ -19,15 +19,33 @@ dependencies:
       required: false
       join-classpath: true
 permissions:
-  jtemplate.other:
-    description: Target other players with commands that support selectors (needs the matching command permission too).
+  jgamemode.use:
+    description: Switch gamemodes (master switch; also needs the scope and mode permissions).
     default: op
-  jtemplate.reload:
-    description: Reload the JTemplate configuration.
-    default: op
-  jtemplate.help:
-    description: View the JTemplate help listing.
+  jgamemode.use.survival:
+    description: Switch to survival.
     default: true
-  jtemplate.version:
-    description: View the JTemplate version.
+  jgamemode.use.creative:
+    description: Switch to creative.
+    default: true
+  jgamemode.use.adventure:
+    description: Switch to adventure.
+    default: true
+  jgamemode.use.spectator:
+    description: Switch to spectator.
+    default: true
+  jgamemode.self:
+    description: Switch your own gamemode (needs jgamemode.use).
+    default: true
+  jgamemode.other:
+    description: Switch other players' gamemode (needs jgamemode.use).
+    default: op
+  jgamemode.reload:
+    description: Reload the JGameMode configuration.
+    default: op
+  jgamemode.help:
+    description: View the JGameMode help listing.
+    default: true
+  jgamemode.version:
+    description: View the JGameMode version.
     default: true

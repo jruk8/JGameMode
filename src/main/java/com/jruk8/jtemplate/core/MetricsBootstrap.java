@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MetricsBootstrap implements Bootstrap {
 
-    private static final int PLUGIN_ID = 12345678; // Replace it with your actual plugin ID from bStats
+    private static final int PLUGIN_ID = 34964;
     private final JavaPlugin plugin;
     private final boolean enabled;
 

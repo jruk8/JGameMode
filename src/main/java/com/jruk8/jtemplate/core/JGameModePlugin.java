@@ -2,19 +2,22 @@ package com.jruk8.jtemplate.core;
 
 import com.jruk8.jtemplate.core.commands.CommandContext;
 import com.jruk8.jtemplate.core.commands.CommandsRegistrar;
+import com.jruk8.jtemplate.core.commands.mode.GameModeExecutor;
+import com.jruk8.jtemplate.core.commands.mode.GameUsageTracker;
+import com.jruk8.jtemplate.core.commands.mode.ToggleHistory;
 import com.jruk8.jtemplate.core.configs.ConfigRegistrar;
 import com.jruk8.jtemplate.core.messages.MessageBootstrap;
 import com.jruk8.jtemplate.core.messages.Messenger;
-import com.jruk8.jtemplate.core.placeholders.CommandUsageTracker;
 import com.jruk8.jtemplate.core.placeholders.PlaceholdersBootstrap;
 import com.jruk8.jtemplate.core.sounds.SoundPlayer;
+import com.jruk8.jtemplate.core.storage.SqliteStorage;
 import com.jruk8.jtemplate.core.storage.StorageBootstrap;
 import com.jruk8.jtemplate.core.update.UpdateCheckerBootstrap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-public final class JTemplatePlugin extends JavaPlugin {
+public final class JGameModePlugin extends JavaPlugin {
 
     private StorageBootstrap storageBootstrap;
 
@@ -61,11 +64,19 @@ public final class JTemplatePlugin extends JavaPlugin {
         updateChecker.register();
         reloader.register(updateChecker);
 
-        // Initialize storage and placeholders first: commands record usage stats
-        CommandUsageTracker usageTracker = setupStorageAndPlaceholders(logger, reloader, configRegistrar);
+        // Initialize storage
+        var storage = setupStorage(logger, reloader, configRegistrar);
+        var usageTracker = new GameUsageTracker(storage);
+        var toggleHistory = new ToggleHistory(storage);
+
+        // Initialize PlaceholderAPI placeholders
+        var placeholdersBootstrap = new PlaceholdersBootstrap(usageTracker, this, logger);
+        placeholdersBootstrap.register();
+        reloader.register(placeholdersBootstrap);
 
         // Initialize commands
-        setupCommands(reloader, configRegistrar, messenger, soundPlayer, updateChecker, usageTracker);
+        setupCommands(reloader, configRegistrar, messenger, soundPlayer,
+                updateChecker, usageTracker, toggleHistory);
 
         // Initialize bStats unless anonymous statistics are disabled
         boolean metricsEnabled = configRegistrar.getPluginConfig().getMetrics().isEnabled();
@@ -79,7 +90,8 @@ public final class JTemplatePlugin extends JavaPlugin {
             Messenger messenger,
             SoundPlayer soundPlayer,
             UpdateCheckerBootstrap updateChecker,
-            CommandUsageTracker usageTracker
+            GameUsageTracker usageTracker,
+            ToggleHistory toggleHistory
     ) {
         var context = new CommandContext(
                 configRegistrar.getMessagesConfig(),
@@ -87,24 +99,19 @@ public final class JTemplatePlugin extends JavaPlugin {
                 messenger,
                 soundPlayer
         );
+        var modeExecutor = new GameModeExecutor(context, toggleHistory, usageTracker);
         var commandRegistrar = new CommandsRegistrar(
                 getLifecycleManager(), reloader, context, getPluginMeta(),
-                configRegistrar.getPluginConfig(), updateChecker.getService(), usageTracker);
+                configRegistrar.getPluginConfig(), modeExecutor, updateChecker.getService(), this);
         commandRegistrar.register();
     }
 
-    private CommandUsageTracker setupStorageAndPlaceholders(
+    private SqliteStorage setupStorage(
             Logger logger, Reloader reloader, ConfigRegistrar configRegistrar) {
         // Initialize SQLite storage
         this.storageBootstrap = new StorageBootstrap(configRegistrar.getPluginConfig(), getDataFolder(), logger);
         this.storageBootstrap.register();
         reloader.register(this.storageBootstrap);
-        var usageTracker = new CommandUsageTracker(this.storageBootstrap.getStorage());
-
-        // Initialize PlaceholderAPI placeholders
-        var placeholdersBootstrap = new PlaceholdersBootstrap(usageTracker, this, logger);
-        placeholdersBootstrap.register();
-        reloader.register(placeholdersBootstrap);
-        return usageTracker;
+        return this.storageBootstrap.getStorage();
     }
 }
