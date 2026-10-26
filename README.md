@@ -1,13 +1,12 @@
 <div align="center">
 
+![JGameMode banner](https://raw.githubusercontent.com/jruk8/JGameMode/main/docs/assets/banner-1280x640.png)
+
 <h3>Modern 26.x plugin for /gm s and /gmc.</h3>
 
 ### [Modrinth](https://modrinth.com/project/jgamemode) · [Wiki](https://jruk8.github.io/JGameMode/) · [GitHub](https://github.com/jruk8/JGameMode)
 
 </div>
-
-> Banner pending: drop a `JGameMode.png` banner at
-> `docs/assets/banner-1280x640.png` and reference it here and in the docs.
 
 # Quick Start 🏃
 

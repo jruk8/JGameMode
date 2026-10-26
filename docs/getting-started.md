@@ -1,3 +1,4 @@
+![Banner](assets/banner-1280x640.png)
 # Getting Started
 
 ## Requirements

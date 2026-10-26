@@ -1,3 +1,4 @@
+![Banner](assets/banner-1280x640.png)
 # JGameMode
 
 Modern 26.x plugin for `/gm s` and `/gmc`: polished gamemode aliases with
