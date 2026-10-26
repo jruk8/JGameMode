@@ -39,7 +39,7 @@ vanilla selectors (`Steve`, `@a`).
 - Dependencies » **None** (PlaceholderAPI is optional, only for the
   `%jgm_...%` placeholders)
 
-# Commands
+### Commands
 
 | Command | Description |
 | --- | --- |
@@ -52,7 +52,7 @@ vanilla selectors (`Steve`, `@a`).
 
 See the full [Commands Page](https://jruk8.github.io/JGameMode/commands/) for more info.
 
-# Permissions
+### Permissions
 
 | Permission | Description | Default |
 | --- | --- | --- |
@@ -67,23 +67,19 @@ See the full [Commands Page](https://jruk8.github.io/JGameMode/commands/) for mo
 | `jgamemode.help` | Use `/jgamemode help`. | Everyone |
 | `jgamemode.version` | Use `/jgamemode version`. | Everyone |
 
-# Configuration
+### Config
 
-First start generates `config.yml`, `messages.yml` and `sounds.yml` in
-`plugins/JGameMode/`:
+Find `config.yml`, `messages.yml` and `sounds.yml` in `plugins/JGameMode/`:
 
-- `updateChecker` » the async GitHub update check (console log,
-  join notice, `/version` line).
-- `aliases` » extra labels for the `/jgamemode` hub (restart to apply).
-- `overrideVanillaCommand` » route vanilla `/gamemode` through the plugin.
-- `storage` » the SQLite database file (stats plus toggle history).
-- `commands` » the standalone root toggles and aliases
-  (restart to apply).
-- `singles` » the `/s`, `/c`, `/a`, `/sp` single-letter roots.
-- `colors` » the shared message color palette.
-- `metrics` » anonymous bStats statistics (restart to apply).
-- `messages.yml` / `sounds.yml` » every message and the sound played
-  for each feedback event.
+- `updateChecker` » checks for updates.
+- `aliases` » aliases for `/jgm` root command (needs **R**estart).
+- `overrideVanillaCommand` » extend Vanilla's `/gamemode`.
+- `storage` » SQLite DB (stats plus toggle history).
+- `commands` » /gmc, /gms, ... aliases (**R**).
+- `singles` » boolean for `/s`, `/c`, `/a`, `/sp` (**R**).
+- `colors` » color palette for messages.
+- `metrics` » anonymous bStats stats (**R**).
+- `messages.yml` / `sounds.yml` » messages and sounds.
 
 See the full [Configuration Page](https://jruk8.github.io/JGameMode/configuration/) for more info.
 
