@@ -15,7 +15,7 @@ exclude = [
     # first deploy publishes it. The links job gates the deploy
     # job, so checking the live site before it exists would fail
     # every run and the site could never roll out.
-    'jruk8\.github\.io/JPaperTemplate',
+    'jruk8\.github\.io/JGameMode',
 ]
 max_retries = 3
 timeout = 20

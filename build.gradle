@@ -2,7 +2,7 @@ plugins {
     id 'com.github.jruk8.plugin-conventions' version 'v1.4.1'
 }
 
-// JTemplate uses Paper's native Brigadier commands (LifecycleEvents.COMMANDS),
+// JGameMode uses Paper's native Brigadier commands (LifecycleEvents.COMMANDS),
 // so the Incendo Cloud command framework that plugin-conventions adds is
 // excluded from every configuration: it never reaches the compile classpath
 // nor the shadowed runtime jar.
@@ -19,7 +19,7 @@ dependencies {
     testImplementation 'me.clip:placeholderapi:2.11.6'
 }
 
-// plugin-conventions only expands plugin.yml, but JTemplate declares its
+// plugin-conventions only expands plugin.yml, but JGameMode declares its
 // metadata (including permissions) in paper-plugin.yml, so expand the same
 // gradle.properties there.
 tasks.named('processResources') {

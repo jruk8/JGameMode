@@ -1,7 +1,7 @@
 package com.jruk8.jtemplate.core.commands.selectors;
 
 import com.jruk8.jtemplate.core.commands.CommandContext;
-import com.jruk8.jtemplate.core.commands.TemplatePermissions;
+import com.jruk8.jtemplate.core.commands.GameModePermissions;
 import com.jruk8.jtemplate.core.messages.MessagesConfig;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -105,7 +105,7 @@ class TargetSelectorTest {
         var selectorCaptor = ArgumentCaptor.forClass(Function.class);
         var tagsCaptor = ArgumentCaptor.forClass(Map.class);
         verify(ctx).error(eq(source), selectorCaptor.capture(), tagsCaptor.capture());
-        assertEquals(TemplatePermissions.OTHER, tagsCaptor.getValue().get("permission"));
+        assertEquals(GameModePermissions.OTHER, tagsCaptor.getValue().get("permission"));
         @SuppressWarnings("unchecked")
         Function<MessagesConfig, String> fn = (Function<MessagesConfig, String>) selectorCaptor.getValue();
         var messages = new MessagesConfig();
@@ -118,7 +118,7 @@ class TargetSelectorTest {
         Player self = player(UUID.randomUUID());
         Player other = player(UUID.randomUUID());
         when(source.getSender()).thenReturn(self);
-        when(self.hasPermission(TemplatePermissions.OTHER)).thenReturn(true);
+        when(self.hasPermission(GameModePermissions.OTHER)).thenReturn(true);
         when(selector.resolve(source)).thenReturn(List.of(other));
 
         var targets = TargetSelector.fromSelector(source, selector, ctx);

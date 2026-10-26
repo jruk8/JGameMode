@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * One row of the {@code /jtemplate help} listing: the syntax players type, a short description,
+ * One row of the {@code /jgamemode help} listing: the syntax players type, a short description,
  * and the permissions that gate its visibility.
  *
- * @param syntax the command syntax, e.g. {@code "/jtemplate version"}
+ * @param syntax the command syntax, e.g. {@code "/jgamemode version"}
  * @param description the short help text for the command
  * @param permissions the permissions, one of which a sender must hold to see this entry;
  *                    empty means visible to everyone

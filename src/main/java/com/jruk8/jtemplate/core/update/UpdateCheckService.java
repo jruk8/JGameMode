@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public final class UpdateCheckService {
 
-    private static final String MODRINTH_SLUG = "jtemplate";
+    private static final String MODRINTH_SLUG = "jgamemode";
 
     private final UpdateCheckHttp http;
     private final Logger logger;
@@ -63,7 +63,7 @@ public final class UpdateCheckService {
         }
         pending = new UpdateAvailable(
                 latest.toString(), current.toString(), release.pageUrl(), modrinthPageUrl());
-        logger.info("JTemplate " + latest + " is available (running " + current + "): " + release.pageUrl());
+        logger.info("JGameMode " + latest + " is available (running " + current + "): " + release.pageUrl());
     }
 
     private static String modrinthPageUrl() {

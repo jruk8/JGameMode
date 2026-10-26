@@ -16,7 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 public final class GitHubReleaseHttp implements UpdateCheckHttp {
 
     private static final String OWNER = "jruk8";
-    private static final String REPO = "JPaperTemplate";
+    private static final String REPO = "JGameMode";
     private static final int TIMEOUT_MILLIS = 10_000;
     private static final Pattern TAG_NAME = Pattern.compile("\"tag_name\"\\s*:\\s*\"([^\"]+)\"");
     private static final Pattern HTML_URL = Pattern.compile("\"html_url\"\\s*:\\s*\"([^\"]+)\"");
@@ -31,7 +31,7 @@ public final class GitHubReleaseHttp implements UpdateCheckHttp {
      * @param pluginVersion the running plugin version
      */
     public GitHubReleaseHttp(String pluginVersion) {
-        this.userAgent = "JTemplate/" + pluginVersion + " (update-checker)";
+        this.userAgent = "JGameMode/" + pluginVersion + " (update-checker)";
     }
 
     @Override

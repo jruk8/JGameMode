@@ -1,6 +1,6 @@
 package com.jruk8.jtemplate.core.update;
 
-import com.jruk8.jtemplate.core.commands.TemplatePermissions;
+import com.jruk8.jtemplate.core.commands.GameModePermissions;
 import com.jruk8.jtemplate.core.messages.MessagesConfig;
 import com.jruk8.jtemplate.core.messages.Messenger;
 import org.bukkit.Bukkit;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.Map;
 
 /**
- * Sends update notices to players holding {@code jtemplate.reload}.
+ * Sends update notices to players holding {@code jgamemode.reload}.
  */
 public final class UpdateCheckNotifier {
 
@@ -39,7 +39,7 @@ public final class UpdateCheckNotifier {
      * @param update the found update
      */
     public void notifyPlayer(Player player, UpdateAvailable update) {
-        if (player == null || update == null || !player.hasPermission(TemplatePermissions.RELOAD)) {
+        if (player == null || update == null || !player.hasPermission(GameModePermissions.RELOAD)) {
             return;
         }
         var tags = Map.of(

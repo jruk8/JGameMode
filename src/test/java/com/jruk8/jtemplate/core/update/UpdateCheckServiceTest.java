@@ -30,7 +30,7 @@ class UpdateCheckServiceTest {
     }
 
     private GitHubRelease release(String number) {
-        return new GitHubRelease(number, "https://github.com/jruk8/JPaperTemplate/releases/tag/v" + number);
+        return new GitHubRelease(number, "https://github.com/jruk8/JGameMode/releases/tag/v" + number);
     }
 
     @Test
