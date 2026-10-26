@@ -36,7 +36,7 @@ public class SoundsConfig extends OkaeriConfig {
     private Sound help = new Sound(true, "block.cherry_wood_hanging_sign.hit", 1.1f, 1.0f);
 
     @Comment("Sound played when a command fails (invalid input, missing permission, failed reload).")
-    private Sound error = new Sound(true, "block.note_block.bass", 1.0f, 1.0f);
+    private Sound error = new Sound(true, "block.chiseled_bookshelf.insert", 1.1f, 1.0f);
 
     @Getter
     @Setter
