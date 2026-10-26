@@ -85,9 +85,9 @@ See the full [Configuration Page](https://jruk8.github.io/JGameMode/configuratio
 
 # Links
 
-- [Documentation](https://jruk8.github.io/JFlySpeed/)
+- [Documentation](https://jruk8.github.io/JGameMode/)
 - [Discord](https://discord.com/invite/hkWmCVmWDC)
-- [GitHub](https://github.com/jruk8/JFlySpeed)
+- [GitHub](https://github.com/jruk8/JGameMode)
 
 ### Donate ☕
 
