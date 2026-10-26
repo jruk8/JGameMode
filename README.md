@@ -2,7 +2,7 @@
 
 ![JGameMode banner](https://raw.githubusercontent.com/jruk8/JGameMode/main/docs/assets/banner-1280x640.png)
 
-<h3>Modern 26.x plugin for /gm s and /gmc.</h3>
+<h3>Modern 26.x plugin for /gmc and /gm 0, with a F3+N-style switcher.</h3>
 
 ### [Modrinth](https://modrinth.com/project/jgamemode) · [Wiki](https://jruk8.github.io/JGameMode/) · [GitHub](https://github.com/jruk8/JGameMode)
 
