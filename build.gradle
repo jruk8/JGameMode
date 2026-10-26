@@ -1,0 +1,40 @@
+plugins {
+    id 'com.github.jruk8.plugin-conventions' version 'v1.4.1'
+}
+
+// JTemplate uses Paper's native Brigadier commands (LifecycleEvents.COMMANDS),
+// so the Incendo Cloud command framework that plugin-conventions adds is
+// excluded from every configuration: it never reaches the compile classpath
+// nor the shadowed runtime jar.
+configurations {
+    all {
+        exclude group: 'org.incendo'
+        exclude group: 'io.leangen.geantyref'
+    }
+}
+
+// PlaceholderAPI ships compileOnly via plugin-conventions; tests need it too
+// to instantiate the expansion (same version as the main classpath).
+dependencies {
+    testImplementation 'me.clip:placeholderapi:2.11.6'
+}
+
+// plugin-conventions only expands plugin.yml, but JTemplate declares its
+// metadata (including permissions) in paper-plugin.yml, so expand the same
+// gradle.properties there.
+tasks.named('processResources') {
+    String paperApi = project.property('paperApiVersion')
+    Map<String, Object> pluginProperties = [
+            version    : project.version,
+            name       : project.property('pluginName'),
+            main       : project.property('pluginMain'),
+            apiVersion : paperApi.split('\\.build\\.')[0],
+            author     : project.property('pluginAuthor'),
+            description: project.property('pluginDescription'),
+            website    : project.property('pluginWebsite')
+    ]
+    inputs.properties(pluginProperties)
+    filesMatching('paper-plugin.yml') {
+        expand(pluginProperties)
+    }
+}

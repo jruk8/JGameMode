@@ -1,0 +1,11 @@
+{# Header source slot points at GitHub: two-line label under the repo name. #}
+<a href="{{ config.repo_url }}" title="View on GitHub" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    {% set icon = config.theme.icon.repo or "fontawesome/brands/git-alt" %}
+    {% include ".icons/" ~ icon ~ ".svg" %}
+  </div>
+  <div class="md-source__repository">
+    <span class="md-source__title">{{ config.repo_name }}</span>
+    <span class="md-source__subheader">Source &amp; Issues</span>
+  </div>
+</a>

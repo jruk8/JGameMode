@@ -1,0 +1,11 @@
+name: Build
+
+on:
+  push:
+    tags-ignore:
+      - '**'
+  pull_request:
+
+jobs:
+  build:
+    uses: jruk8/plugin-conventions/.github/workflows/build.yml@v1.4.1

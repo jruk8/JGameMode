@@ -1,0 +1,100 @@
+/* JTemplate brand colors. Header uses the darker shade, tabs keep the signature hex. */
+:root {
+  --md-primary-fg-color: #c05d4d;
+  --md-primary-fg-color--light: #e89583;
+  --md-primary-fg-color--dark: #de7766;
+  --md-primary-bg-color: #fff;
+  --md-primary-bg-color--light: hsla(0, 0%, 100%, .7);
+  --md-accent-fg-color: #de7766;
+  --md-accent-fg-color--transparent: rgba(222, 119, 102, .1);
+  --md-accent-bg-color: #fff;
+  --md-accent-bg-color--light: hsla(0, 0%, 100%, .7);
+}
+
+/* Header logo renders small by default, so bump it up a little. */
+.md-header__button.md-logo img {
+  height: 1.8rem;
+  width: auto;
+}
+
+/* Per-scheme header logo: white mark on dark, black mark on light.
+   overrides/partials/logo.html renders both marks (header and nav drawer);
+   only one shows. Specificity beats the theme's display:block on logo imgs. */
+[data-md-color-scheme="slate"] .md-header__button.md-logo img.md-logo__img--light,
+[data-md-color-scheme="slate"] .md-nav .md-nav__title .md-logo img.md-logo__img--light {
+  display: none;
+}
+[data-md-color-scheme="default"] .md-header__button.md-logo img.md-logo__img--dark,
+[data-md-color-scheme="default"] .md-nav .md-nav__title .md-logo img.md-logo__img--dark {
+  display: none;
+}
+
+/* Content column runs wider than the 61rem default. Single tunable. */
+.md-grid {
+  max-width: 68rem;
+}
+
+/* Nav sidebars keep a slimmer scrollbar than the .2rem default.
+   Firefox stays on scrollbar-width: thin, already its minimum. */
+.md-sidebar__scrollwrap::-webkit-scrollbar {
+  width: .15rem;
+  height: .15rem;
+}
+
+/* Search results read bigger: wider popup than the 20rem default
+   with roomier type than the .64rem default. */
+:root {
+  --md-tooltip-width: 26rem;
+}
+
+[role="dialog"] > .md-tooltip2__inner {
+  font-size: .72rem;
+}
+
+/* Screenshot grids: one reusable system for gallery groups. Every group is
+   two columns wide: shots-2x1 holds one row, shots-2x2 holds two,
+   shots-2x3 holds three. */
+.shots {
+  display: grid;
+}
+.shots-2x1,
+.shots-2x2,
+.shots-2x3 {
+  grid-template-columns: repeat(2, 1fr);
+}
+/* 2% margin on every side of each tile reads as 4% gutters between tiles. */
+.shots > * {
+  margin: 2%;
+  min-width: 0;
+}
+.shots img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* GitHub header button: title plus dimmer subheader, stacked inside
+   the theme's repository slot. Both lines inherit the theme's own
+   source size (the subheader reads smaller through dimming alone),
+   so no fixed size can drift from the built theme again. */
+.md-source__title,
+.md-source__subheader {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.md-source__subheader {
+  opacity: .75;
+}
+
+/* Empty slots keep a 16:9 frame until real screenshots land. */
+.shot-empty {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: 2px dashed #999999;
+  outline-offset: -2px;
+  font-size: .8rem;
+  opacity: .8;
+}

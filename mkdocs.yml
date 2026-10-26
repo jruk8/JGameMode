@@ -1,0 +1,68 @@
+site_name: JPaperTemplate
+site_description: A clean, buildable starting point for Paper plugins using Java 25 and Gradle.
+site_url: https://jruk8.github.io/JPaperTemplate/
+repo_url: https://github.com/jruk8/JPaperTemplate
+repo_name: GitHub
+
+theme:
+  variant: modern
+  language: en
+  custom_dir: overrides
+  # No logo or favicon yet: brand art lives in jruk8/JResources, which has no
+  # JPaperTemplate assets. Add logo/favicon here plus extra.logo_light below
+  # once they exist; overrides/partials/logo.html already renders both marks.
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - announce.dismiss
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Commands: commands.md
+  - Permissions: permissions.md
+  - Configuration: configuration.md
+  - Placeholders: placeholders.md
+  - Extending the Template: api.md
+
+extra:
+  # No generator backlink in the footer (SEO: no third-party links).
+  generator: false

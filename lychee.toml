@@ -1,0 +1,21 @@
+# Lychee config for the Docs links job (.github/workflows/docs.yml).
+# Internal pages and anchors are covered by `zensical build --strict`;
+# lychee exists for absolute (http/https) URLs.
+exclude = [
+    # BuiltByBit walls bots with Cloudflare (403 for all automated
+    # checks); the resource page loads fine in browsers.
+    'builtbybit\.com',
+    # minecraft-heads.com rejects bot checks with 403; the head
+    # database loads fine in browsers.
+    'minecraft-heads\.com',
+    # spigotmc.org rejects bot checks with 503; the resource
+    # pages load fine in browsers.
+    'spigotmc\.org',
+    # The template's own Pages site (site_url): skipped until the
+    # first deploy publishes it. The links job gates the deploy
+    # job, so checking the live site before it exists would fail
+    # every run and the site could never roll out.
+    'jruk8\.github\.io/JPaperTemplate',
+]
+max_retries = 3
+timeout = 20

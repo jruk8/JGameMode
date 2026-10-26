@@ -1,0 +1,26 @@
+# Release credentials live in the repo settings; setting them is the only
+# setup this workflow needs (they arrive here via `secrets: inherit` and
+# the shared plugin-conventions publish workflow reads them by name):
+#   secrets.MODRINTH_TOKEN (Modrinth API token; uploads on v* tags only)
+#   secrets.GH_RELEASE_TOKEN (GitHub token for releases, snapshots, changelog)
+#   vars.MODRINTH_ID (Modrinth project id; empty skips the Modrinth upload)
+#   vars.MODRINTH_LOADERS (Modrinth loader metadata)
+#   vars.MODRINTH_GAME_VERSIONS (Modrinth game-version metadata)
+name: Publish
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    permissions:
+      contents: write
+      packages: read
+    uses: jruk8/plugin-conventions/.github/workflows/publish.yml@v1.4.1
+    secrets: inherit

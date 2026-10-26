@@ -1,0 +1,33 @@
+name: ${name}
+version: ${version}
+main: ${main}
+api-version: "${apiVersion}"
+# The update check runs on Paper's async/global-region schedulers and every
+# command touches only its caller's thread, so the plugin is safe on Folia.
+folia-supported: true
+author: ${author}
+description: ${description}
+website: ${website}
+# Paper's loader ignores Bukkit's legacy softdepend key (and without a declared
+# relationship PlaceholderAPI's classes are invisible to this plugin), so the
+# optional dependency is declared here: load after PAPI when it is present and
+# join its classpath so the expansion classes resolve.
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: AFTER
+      required: false
+      join-classpath: true
+permissions:
+  jtemplate.other:
+    description: Target other players with commands that support selectors (needs the matching command permission too).
+    default: op
+  jtemplate.reload:
+    description: Reload the JTemplate configuration.
+    default: op
+  jtemplate.help:
+    description: View the JTemplate help listing.
+    default: true
+  jtemplate.version:
+    description: View the JTemplate version.
+    default: true
