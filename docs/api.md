@@ -1,3 +1,7 @@
+---
+icon: material/puzzle
+---
+
 # Plugin API
 
 This page explains where new code plugs in. Every module follows the same

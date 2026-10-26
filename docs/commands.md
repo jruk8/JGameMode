@@ -1,3 +1,7 @@
+---
+icon: material/console
+---
+
 # Commands
 
 All mode commands switch gamemodes with vanilla selectors. An omitted

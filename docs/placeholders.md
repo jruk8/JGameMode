@@ -1,3 +1,7 @@
+---
+icon: material/variable
+---
+
 # Placeholders
 
 PlaceholderAPI support is handled by the `core.placeholders` module. When

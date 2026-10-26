@@ -1,3 +1,7 @@
+---
+icon: material/tune
+---
+
 # Configuration
 
 The plugin writes `config.yml`, `messages.yml` and `sounds.yml` into its data

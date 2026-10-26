@@ -1,3 +1,7 @@
+---
+icon: material/home
+---
+
 ![Banner](assets/banner-1280x640.png)
 # JGameMode
 

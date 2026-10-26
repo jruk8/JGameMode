@@ -87,6 +87,27 @@
   opacity: .75;
 }
 
+/* Keep both source links together and place search after them in the header. */
+@media screen and (min-width: 60em) {
+  .md-header__source {
+    display: flex;
+    order: 1;
+    width: 20.5rem;
+    max-width: 20.5rem;
+  }
+  .md-header__inner > form[data-md-component="palette"] {
+    order: 2;
+  }
+  .md-header__inner > label[for="__search"],
+  .md-header__inner > .md-search {
+    order: 3;
+  }
+  .md-header__source .md-source {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
 /* Empty slots keep a 16:9 frame until real screenshots land. */
 .shot-empty {
   aspect-ratio: 16 / 9;

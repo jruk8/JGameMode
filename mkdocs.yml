@@ -60,9 +60,10 @@ nav:
   - Permissions: permissions.md
   - Configuration: configuration.md
   - Placeholders: placeholders.md
-  - Plugin API for developers: api.md
+  - Plugin API: api.md
 
 extra:
   logo_light: assets/jgamemode-icon-lightmode.png
+  discord_url: https://discord.com/invite/hkWmCVmWDC
   # No generator backlink in the footer (SEO: no third-party links).
   generator: false
