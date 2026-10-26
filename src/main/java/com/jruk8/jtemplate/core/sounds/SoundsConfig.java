@@ -23,17 +23,17 @@ import lombok.Setter;
 })
 public class SoundsConfig extends OkaeriConfig {
 
-    @Comment("Neutral feedback for ordinary commands, heard by the executor and every affected player.")
-    private Sound neutral = new Sound(true, "entity.breeze.land", 0.8f, 0.7f);
+    @Comment("Neutral feedback for gamemode switches, heard by the executor and every affected player.")
+    private Sound neutral = new Sound(true, "block.ancient_debris.break", 1.1f, 0.85f);
 
-    @Comment("Feedback for state resets, heard by the executor and every affected player.")
-    private Sound reset = new Sound(true, "block.azalea_leaves.place", 0.8f, 0.7f);
+    @Comment("Celebration feedback for reload, heard by the executor.")
+    private Sound reload = new Sound(true, "block.cherry_wood_hanging_sign.hit", 1.1f, 1.0f);
 
-    @Comment("Sound played when the configuration is reloaded.")
-    private Sound reload = new Sound(true, "block.azalea_leaves.place", 0.8f, 0.7f);
+    @Comment("Celebration feedback for the version command, heard by the executor.")
+    private Sound version = new Sound(true, "block.cherry_wood_hanging_sign.hit", 1.1f, 1.0f);
 
-    @Comment("Sound played when the help menu is shown.")
-    private Sound help = new Sound(true, "block.azalea_leaves.place", 0.8f, 0.7f);
+    @Comment("Celebration feedback for the help menu, heard by the executor.")
+    private Sound help = new Sound(true, "block.cherry_wood_hanging_sign.hit", 1.1f, 1.0f);
 
     @Comment("Sound played when a command fails (invalid input, missing permission, failed reload).")
     private Sound error = new Sound(true, "block.note_block.bass", 1.0f, 1.0f);

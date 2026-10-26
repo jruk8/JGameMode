@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
  * <p>
  * Command classes take a single {@code CommandContext} instead of listing {@code messages}, {@code sounds},
  * {@code messenger}, and {@code soundPlayer} individually — adding a new shared service only requires updating this
- * record and its single construction site in {@code JTemplatePlugin}, not every command class's constructor.
+ * record and its single construction site in {@code JGameModePlugin}, not every command class's constructor.
  * <p>
  * Messages resolve {bracket} placeholders from the given map; angle brackets
  * are raw MiniMessage and pass through untouched.
@@ -63,7 +63,7 @@ public record CommandContext(
     }
 
     /**
-     * Sends a message to the executor and plays the neutral sound.
+     * Sends a gamemode message to the executor and plays the neutral sound.
      * @param sender The command sender to send the message to and play the sound for.
      * @param messageSelector Function to select the message string from {@link MessagesConfig}.
      * @param placeholders Key-value pairs for {bracket} text replacements.
@@ -78,7 +78,7 @@ public record CommandContext(
     }
 
     /**
-     * Sends a message to an affected player and plays the neutral sound.
+     * Sends a gamemode message to an affected player and plays the neutral sound.
      * @param target The recipient of the message and sound.
      * @param messageSelector Function to select the message string from {@link MessagesConfig}.
      * @param placeholders Key-value pairs for {bracket} text replacements.
@@ -108,7 +108,7 @@ public record CommandContext(
     }
 
     /**
-     * Sends a version message to the executor and plays the neutral sound.
+     * Sends a version message to the executor and plays the version sound.
      * @param sender The command sender to send the message to and play the sound for.
      * @param messageSelector Function to select the message string from {@link MessagesConfig}.
      * @param placeholders Key-value pairs for {bracket} text replacements.
@@ -119,7 +119,7 @@ public record CommandContext(
             Map<String, String> placeholders
     ) {
         messenger.send(sender.getSender(), messageSelector.apply(messages), placeholders);
-        soundPlayer.play(sender.getSender(), sounds.getNeutral());
+        soundPlayer.play(sender.getSender(), sounds.getVersion());
     }
 
     /**

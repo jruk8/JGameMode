@@ -75,7 +75,7 @@ class MessageParserTest {
             Component result = parser.parse(raw, Map.of());
             // After MiniMessage parsing, the result should contain the prefix text
             String resultString = PLAIN_TEXT.serialize(result);
-            assertTrue(resultString.contains("[JTemplate]"));
+            assertTrue(resultString.contains("[JGameMode]"));
         }
     }
 
@@ -89,10 +89,10 @@ class MessageParserTest {
             String raw = "{plain}a{brand}b{hl}c{error}d";
             Component result = parser.parse(raw, Map.of());
             String serialized = MINI_MESSAGE.serialize(result);
-            assertTrue(serialized.contains("#b8d8e0"));
-            assertTrue(serialized.contains("#84b8db"));
-            assertTrue(serialized.contains("#ebf1f2"));
-            assertTrue(serialized.contains("#415ad9"));
+            assertTrue(serialized.contains("#e0d8b8"));
+            assertTrue(serialized.contains("#edca3b"));
+            assertTrue(serialized.contains("#f2f0e9"));
+            assertTrue(serialized.contains("#d9ba41"));
         }
 
         @Test
@@ -192,7 +192,7 @@ class MessageParserTest {
         void shouldResolveColorsInValues() {
             Component result = parser.parse("Hi {name}", Map.of("name", "{hl}Steve"));
             String serialized = MINI_MESSAGE.serialize(result);
-            assertTrue(serialized.contains("#ebf1f2"));
+            assertTrue(serialized.contains("#f2f0e9"));
             assertTrue(PLAIN_TEXT.serialize(result).contains("Steve"));
         }
     }
