@@ -14,7 +14,7 @@ style, and documentation expectations.
     finishing any change.
   - `./gradlew test` runs only the tests while iterating; narrow to
     one suite with `./gradlew test --tests
-    "com.jruk8.jtemplate.core.MyTest"`.
+    "com.jruk8.jgamemode.core.MyTest"`.
   - The plugin jar lands in `build/libs/`.
 - **Test server:** there is no committed test server. Spin up a local
   [Paper 26.2+](https://papermc.io/downloads/paper) server, drop the

@@ -1,7 +1,7 @@
 # Plugin API
 
 This page explains where new code plugs in. Every module follows the same
-shape: a package under `com.jruk8.jtemplate.core`, its own config class (or
+shape: a package under `com.jruk8.jgamemode.core`, its own config class (or
 section), and a registrar implementing `Bootstrap` that is invoked from
 `JGameModePlugin.setupCoreModules()`.
 

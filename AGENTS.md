@@ -25,7 +25,7 @@ availability with a graceful warning. Read this file first, then `docs/`.
 ## 2. Repo map
 
 ```text
-src/main/java/com/jruk8/jtemplate/core/
+src/main/java/com/jruk8/jgamemode/core/
   JGameModePlugin           composition root only: setupCoreModules() wires the registrars
   Bootstrap/Reloadable      registrar contracts; Reloader re-runs every Reloadable
   commands/                 Paper Brigadier nodes (Commands.literal/argument) + registrars
@@ -97,7 +97,7 @@ created once and injected.
 ## 4. Before you finish a task
 
 ```sh
-./gradlew test --tests "com.jruk8.jtemplate.core.commands.mode.GameModeExecutorTest"  # focused suite while iterating
+./gradlew test --tests "com.jruk8.jgamemode.core.commands.mode.GameModeExecutorTest"  # focused suite while iterating
 ./gradlew test                                                                        # all tests before widening
 ./gradlew build                                                                       # full gate: tests + checkstyle
 ```
