@@ -8,9 +8,8 @@ theme:
   variant: modern
   language: en
   custom_dir: overrides
-  # No logo or favicon yet: brand art lives in jruk8/JResources, which has no
-  # JGameMode assets. Add logo/favicon here plus extra.logo_light below
-  # once they exist; overrides/partials/logo.html already renders both marks.
+  logo: assets/jgamemode-icon-darkmode.png
+  favicon: assets/jgamemode-favicon.png
   icon:
     repo: fontawesome/brands/github
   palette:
@@ -64,5 +63,6 @@ nav:
   - Plugin API for developers: api.md
 
 extra:
+  logo_light: assets/jgamemode-icon-lightmode.png
   # No generator backlink in the footer (SEO: no third-party links).
   generator: false
