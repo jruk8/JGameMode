@@ -1,12 +1,12 @@
-/* JTemplate brand colors. Header uses the darker shade, tabs keep the signature hex. */
+/* JGameMode gold palette. Header uses the darker shade, tabs keep the signature hex. */
 :root {
-  --md-primary-fg-color: #c05d4d;
-  --md-primary-fg-color--light: #e89583;
-  --md-primary-fg-color--dark: #de7766;
+  --md-primary-fg-color: #b8922a;
+  --md-primary-fg-color--light: #eed27a;
+  --md-primary-fg-color--dark: #dbb93e;
   --md-primary-bg-color: #fff;
   --md-primary-bg-color--light: hsla(0, 0%, 100%, .7);
-  --md-accent-fg-color: #de7766;
-  --md-accent-fg-color--transparent: rgba(222, 119, 102, .1);
+  --md-accent-fg-color: #dbb93e;
+  --md-accent-fg-color--transparent: rgba(219, 185, 62, .1);
   --md-accent-bg-color: #fff;
   --md-accent-bg-color--light: hsla(0, 0%, 100%, .7);
 }

@@ -1,26 +1,37 @@
 # Commands
 
-All commands are available under `/jtemplate` and its aliases (default
-`/jt`, see `aliases` in [configuration.md](configuration.md)). Running
-the root with no arguments shows the help listing.
+All mode commands switch gamemodes with vanilla selectors. An omitted
+target means yourself; console must always name one. Every switch needs
+`jgamemode.use`, plus the scope (`jgamemode.self` or `jgamemode.other`)
+and the mode (`jgamemode.use.<mode>`) permissions.
 
 | Command | Description | Permission |
 | --- | --- | --- |
-| `/jtemplate help [query]` | Shows the in-game command list. | `jtemplate.help` |
-| `/jtemplate version` | Shows the plugin version and authors. | `jtemplate.version` |
-| `/jtemplate reload` | Reloads all configuration files. | `jtemplate.reload` |
+| `/gm [<mode>\|toggle] [targets]` | Set gamemode, or toggle without a mode. | `jgamemode.use` |
+| `/gms [targets]` | Switch to survival. | `jgamemode.use` |
+| `/gmc [targets]` | Switch to creative. | `jgamemode.use` |
+| `/gma [targets]` | Switch to adventure. | `jgamemode.use` |
+| `/gmsp [targets]` | Switch to spectator. | `jgamemode.use` |
+| `/gmt [targets]` | Toggle spectator and back. | `jgamemode.use` |
+| `/gamemode [<mode>\|toggle] [targets]` | Vanilla gamemode through this plugin. | `jgamemode.use` |
+| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (alias `/jgm`). | — |
 
-- **`help`** supports an optional query argument that filters the listed
-  commands (`/jtemplate help reload`). Entries are filtered by permission,
-  so every sender only sees what they may use.
-- **`version`** prints the plugin's version and author list with links,
-  and repeats a pending update notice to admins.
-- **`reload`** re-reads `config.yml`, `messages.yml` and `sounds.yml`, then
-  reopens the SQLite database and re-registers the placeholders with the new
-  settings. Changed root labels need a restart; `reload` says so when it
-  detects a change.
+The single-letter roots `/s`, `/c`, `/a` and `/sp` switch directly when
+their label is free (see [configuration.md](configuration.md)).
 
-See [permissions.md](permissions.md) for defaults.
+- **Modes** are matched dynamically: full names (`survival`), shorthands
+  (`s`, `c`, `a`, `sp`), numbers (`0`-`3`) and any substring (`creat`
+  works out to creative, first match wins). Gibberish errors out.
+- **Toggle** (`/gm`, `/gmt`, `/t`, `/gm toggle`) swaps between spectator
+  and the last non-spectator mode, mirroring vanilla F3+N: leaving for
+  spectator caches where you came from, coming back never overwrites the
+  ticket. Spectators without history fall back to creative, then survival,
+  then adventure, by permission.
+- **History** is stored per player in the database (only this plugin's
+  switches count) and survives restarts. Switching directly to spectator
+  never touches it.
+
+Direct examples: `/gmc`, `/gm sp Steve`, `/gm tog @a`, `/gamemode 1`.
 
 ## Adding a Command
 
@@ -33,7 +44,7 @@ See [permissions.md](permissions.md) for defaults.
    `root.then(new MyCommand(...).node())`, injecting only the services it
    needs (commonly `CommandContext`).
 3. Declare the permission in `paper-plugin.yml` (with a constant in
-   `TemplatePermissions`), document it in [permissions.md](permissions.md)
-   and add a `HelpEntry` so the command shows up in `/jtemplate help`.
+   `GameModePermissions`), document it in [permissions.md](permissions.md)
+   and add a `HelpEntry` so the command shows up in `/jgamemode help`.
 
 See [api.md](api.md) for the full walkthrough.

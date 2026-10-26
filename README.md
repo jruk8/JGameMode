@@ -1,84 +1,99 @@
 <div align="center">
 
-![JTemplate banner](https://raw.githubusercontent.com/jruk8/JPaperTemplate/main/docs/assets/banner-1280x640.png)
+<h3>Modern 26.x plugin for /gm s and /gmc.</h3>
 
-<h3>A clean starting point for modern Paper plugins.</h3>
-
-### [Wiki](https://jruk8.github.io/JPaperTemplate/) · [GitHub](https://github.com/jruk8/JPaperTemplate)
+### [Modrinth](https://modrinth.com/project/jgamemode) · [Wiki](https://jruk8.github.io/JGameMode/) · [GitHub](https://github.com/jruk8/JGameMode)
 
 </div>
 
+> Banner pending: drop a `JGameMode.png` banner at
+> `docs/assets/banner-1280x640.png` and reference it here and in the docs.
+
 # Quick Start 🏃
 
-1. Find & replace `jtemplate` → *yourname* and `JTemplate` → *YourName*
-   across the repo (packages, commands, placeholders, database, docs).
-2. Update `gradle.properties` (`pluginName`, `pluginMain`, `pluginAuthor`,
-   `pluginDescription`, `pluginWebsite`) and `rootProject.name` in
-   `settings.gradle`.
-3. Build the jar and drop it into `plugins/`.
+1. Drop the jar into `plugins/` and restart the server.
+2. Run **`/gm s`**.
+3. Toggle with **`/gmt`** (spectator and back, like F3+N).
 
-**That's it!** You have a working plugin with Brigadier commands,
-MiniMessage messages, sounds, PAPI placeholders, SQLite storage and a
-GitHub update checker. Delete the modules you do not need, then add your
-business logic on top.
+**That's it!** Modes resolve dynamically (`/gm creat`, `/gm 1`),
+targets use vanilla selectors (`/gmc Steve`, `/gm sp @a`), and
+`/jgm help` lists the rest.
 
 # Features
 
-- **Brigadier commands** » Paper-native nodes with permission gates,
-  config-driven root aliases, and a bare-root help listing.
-- **Selectors ready** » `TargetSelector` plus selector/value tab
-  completion out of the box.
-- **MiniMessage everywhere** » `{braces}` for plugin placeholders,
-  angle brackets reserved for raw MiniMessage, shared color palette.
-- **Sounds** » config-driven Adventure sounds per feedback event.
-- **Placeholders** » a PAPI expansion with self/other variants
-  (`%jtemplate_uses%`, `%jtemplate_uses_<player>%`).
-- **Update checker** » async GitHub releases check (console log, join
-  notice, `/version` line).
-- **Reloadable** » `/jtemplate reload` re-reads every config and
-  re-opens storage and placeholders without a restart.
+- **Direct aliases** » `/gms`, `/gmc`, `/gma`, `/gmsp`, plus
+  `/gm s|c|a|sp` and the single-letter `/s`, `/c`, `/a`, `/sp` roots.
+- **Dynamic resolution** » full names, numbers and substrings
+  (`/gm tog` toggles); gibberish errors out.
+- **Spectator toggle** » `/gm`, `/gmt` and `/t` swap between spectator
+  and the last non-spectator mode, mirroring vanilla F3+N with
+  permission checks.
+- **Permission gating** » `use` master switch, opt-out per-mode nodes,
+  `self`/`other` scopes; tab completion only shows permitted modes and
+  selectors.
+- **Vanilla override** » optional 1:1 `/gamemode` replacement (toggle
+  and history included).
+- **Also for serious deployment** » MiniMessage, sounds, PAPI placeholders
+  (`%jgm_uses%`, `%jgm_toggle_uses%`, per-mode and global variants),
+  and an SQLite store for stats and toggle history.
 
 ### Requirements
 
 - Server Software » [Paper 26.2+](https://papermc.io/downloads/paper) (Folia supported)
 - Java Version » **Java 25**
 - Dependencies » **None** (PlaceholderAPI is optional, only for the
-  `%jtemplate_...%` placeholders)
+  `%jgm_...%` placeholders)
 
 # Commands
 
 | Command | Description |
 | --- | --- |
-| `/jtemplate <help\|version\|reload>` | Help, version, and config reload (alias `/jt`). |
+| `/gm [<mode>\|toggle] [targets]` | Set gamemode, or toggle without a mode. |
+| `/gms\|/gmc\|/gma\|/gmsp [targets]` | Switch directly to a gamemode. |
+| `/gmt [targets]` | Toggle spectator and back (alias `/t`). |
+| `/s\|/c\|/a\|/sp [targets]` | Single-letter shortcuts (when free). |
+| `/gamemode [<mode>\|toggle] [targets]` | Vanilla gamemode through this plugin. |
+| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (alias `/jgm`). |
 
-Running the root with no arguments shows the help listing. Full table and
-examples live in
-[commands.md](https://github.com/jruk8/JPaperTemplate/blob/main/docs/commands.md).
+An omitted target means yourself; console must always name one. Modes
+accept names, shorthands, numbers and substrings; the toggle swaps with
+spectator. Full table and examples live in
+[commands.md](https://github.com/jruk8/JGameMode/blob/main/docs/commands.md).
 
 # Permissions
 
 | Permission | Description | Default |
 | --- | --- | --- |
-| `jtemplate.other` | Target other players (needs the matching command permission too). | OP |
-| `jtemplate.reload` | Use `/jtemplate reload`. | OP |
-| `jtemplate.help` | Use `/jtemplate help` (entries are permission-filtered). | Everyone |
-| `jtemplate.version` | Use `/jtemplate version`. | Everyone |
+| `jgamemode.use` | Switch gamemodes (master switch; also needs scope and mode). | OP |
+| `jgamemode.use.survival` | Switch to survival. | Everyone |
+| `jgamemode.use.creative` | Switch to creative. | Everyone |
+| `jgamemode.use.adventure` | Switch to adventure. | Everyone |
+| `jgamemode.use.spectator` | Switch to spectator. | Everyone |
+| `jgamemode.self` | Switch your own gamemode. | Everyone |
+| `jgamemode.other` | Switch other players' gamemode. | OP |
+| `jgamemode.reload` | Use `/jgamemode reload`. | OP |
+| `jgamemode.help` | Use `/jgamemode help` (entries are permission-filtered). | Everyone |
+| `jgamemode.version` | Use `/jgamemode version`. | Everyone |
 
 # Configuration
 
 First start generates `config.yml`, `messages.yml` and `sounds.yml` in
-`plugins/JTemplate/`:
+`plugins/JGameMode/`:
 
 - `updateChecker` » the async GitHub update check (console log,
   join notice, `/version` line).
-- `aliases` » extra labels for the `/jtemplate` root (restart to apply).
-- `storage` » the SQLite database file.
+- `aliases` » extra labels for the `/jgamemode` hub (restart to apply).
+- `overrideVanillaCommand` » route vanilla `/gamemode` through the plugin.
+- `storage` » the SQLite database file (stats plus toggle history).
+- `commands` » the standalone root toggles and aliases
+  (restart to apply).
+- `singles` » the `/s`, `/c`, `/a`, `/sp` single-letter roots.
 - `colors` » the shared message color palette.
 - `metrics` » anonymous bStats statistics (restart to apply).
 - `messages.yml` / `sounds.yml` » every message and the sound played
   for each feedback event.
 
-Every value is documented in [configuration.md](https://github.com/jruk8/JPaperTemplate/blob/main/docs/configuration.md).
+Every value is documented in [configuration.md](https://github.com/jruk8/JGameMode/blob/main/docs/configuration.md).
 
 # Build
 
@@ -93,11 +108,11 @@ Every value is documented in [configuration.md](https://github.com/jruk8/JPaperT
 
 ### Links
 
-- [Documentation](https://jruk8.github.io/JPaperTemplate/)
-- [GitHub](https://github.com/jruk8/JPaperTemplate)
+- [Documentation](https://jruk8.github.io/JGameMode/)
+- [GitHub](https://github.com/jruk8/JGameMode)
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/jruk8/JPaperTemplate/blob/main/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/jruk8/JGameMode/blob/main/CONTRIBUTING.md).
 
-&copy; 2026 jruk8. Licensed under [GPL-3.0](https://github.com/jruk8/JPaperTemplate/blob/main/LICENSE).
+&copy; 2026 jruk8. Licensed under [AGPL-3.0](https://github.com/jruk8/JGameMode/blob/main/LICENSE).

@@ -1,6 +1,6 @@
-# Contributing to JTemplate
+# Contributing to JGameMode
 
-Thank you for your interest in contributing to JTemplate! This document
+Thank you for your interest in contributing to JGameMode! This document
 covers the environment, coding conventions, testing expectations, commit
 style, and documentation expectations.
 
@@ -19,7 +19,7 @@ style, and documentation expectations.
 - **Test server:** there is no committed test server. Spin up a local
   [Paper 26.2+](https://papermc.io/downloads/paper) server, drop the
   built jar into `plugins/`, and restart. PlaceholderAPI is optional
-  and only needed to exercise the `%jtemplate_...%` placeholders.
+  and only needed to exercise the `%jgm_...%` placeholders.
   Say what you verified live versus in unit tests, and never present
   an unrunnable check as green.
 
@@ -36,7 +36,7 @@ style, and documentation expectations.
 - **Manual wiring:** each class receives only what it needs via its
   constructor, and a module-level registrar (implementing
   `Bootstrap`, optionally `Reloadable`) composes the module.
-  `JTemplatePlugin.setupCoreModules()` is the single composition
+  `JGameModePlugin.setupCoreModules()` is the single composition
   root. Avoid static state and singletons.
 - **Null safety:** use `@NotNull` and `@Nullable` from
   `org.jetbrains.annotations` where nullability is not obvious.

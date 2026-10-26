@@ -1,17 +1,20 @@
-# Extending the Template
+# Plugin API
 
 This page explains where new code plugs in. Every module follows the same
 shape: a package under `com.jruk8.jtemplate.core`, its own config class (or
 section), and a registrar implementing `Bootstrap` that is invoked from
-`JTemplatePlugin.setupCoreModules()`.
+`JGameModePlugin.setupCoreModules()`.
 
 Dependencies flow one way, constructor-injected: configs -> services ->
 commands/placeholders. There are no singletons or static state.
 
 ## Add a Command
 
-1. Create a package `core.commands.user.<name>` (or `admin`) with a command
-   class that builds a Brigadier node:
+Commands are Paper-native Brigadier nodes registered through
+`LifecycleEvents.COMMANDS` (see `CommandsRegistrar`).
+
+1. Create a package `core.commands.user.<name>` (or `admin`, or `mode`)
+   with a command class exposing a `node()` method:
 
    ```java
    public class PingCommand {
@@ -21,7 +24,7 @@ commands/placeholders. There are no singletons or static state.
 
        public LiteralArgumentBuilder<CommandSourceStack> node() {
            return Commands.literal("ping")
-                   .requires(CommandContext.requiresPermission(TemplatePermissions.PING))
+                   .requires(CommandContext.requiresPermission(GameModePermissions.PING))
                    .executes(context -> {
                        // Own text lives in MessagesConfig; {braces} resolve from the map.
                        ctx.sendMessage(context.getSource(),
@@ -33,8 +36,8 @@ commands/placeholders. There are no singletons or static state.
    ```
 
    Commands are Paper-native Brigadier nodes registered through
-   `LifecycleEvents.COMMANDS` (see `CommandsRegistrar`). The root literal
-   (`jtemplate`, plus its configured aliases) carries a bare-root help
+   `LifecycleEvents.COMMANDS` (see `CommandsRegistrar`). The hub root
+   (`jgamemode`, plus its configured aliases) carries a bare-root help
    fallback, so a new command only defines its own subcommand node.
    Messages are strictly MiniMessage: plugin placeholders use `{braces}`,
    angle brackets are raw MiniMessage.
@@ -44,9 +47,9 @@ commands/placeholders. There are no singletons or static state.
    `root.then(new PingCommand(ctx).node());`
 
 3. Declare the permission in `paper-plugin.yml` (with a constant in
-   `TemplatePermissions`) and document the command in `docs/commands.md` and
+   `GameModePermissions`) and document the command in `docs/commands.md` and
    `docs/permissions.md`. Add a `HelpEntry` in `HelpCommand` so
-   `/jtemplate help` lists it.
+   `/jgamemode help` lists it.
 
 ## Add a Config Option
 
@@ -54,26 +57,30 @@ The config classes are okaeri-configs. For a small option, add a field to an
 existing config class; for a coherent new section, add a nested static class
 and give it a field in the parent (see `PluginConfig.Colors` for the
 pattern). The section will be created in the yaml file automatically and
-reloaded by `ConfigRegistrar` on `/jtemplate reload`.
+reloaded by `ConfigRegistrar` on `/jgamemode reload`.
 
 ## Add a Stat to the Database
 
-`SqliteStorage` exposes four operations for generic key/value counters:
+`SqliteStorage` exposes counter and value operations for generic key/value
+state:
 
 - `increment(key, player)` and `incrementGlobal(key)` per-player / global
 - `playerTotal(key, player)` and `globalTotal(key)` reads
+- `setPlayerValue(key, player, value)` and `playerValue(key, player)` writes
+  and nullable reads (for toggle history)
 
 Give your feature its own stat key and a small service class around
-`SqliteStorage` (like `CommandUsageTracker`), then inject that service where
-state is produced (listener, command) and consumed (placeholder).
+`SqliteStorage` (like `GameUsageTracker` or `ToggleHistory`), then inject
+that service where state is produced (command) and consumed (placeholder).
 
 ## Add a Placeholder
 
-Add a branch to `UsageExpansion.onRequest()`:
+Add a suffix to `GameUsageExpansion` (counter key plus `uses`,
+`uses_<player>` and `uses_global` variants come from `suffixes()`):
 
 ```java
-if ("my_stat".equals(params)) {
-    return selfUses(player, tracker::playerUses);
+if ("my_stat_uses".equals(params)) {
+    return selfUses(player, tracker::playerMyStat);
 }
 ```
 
@@ -86,8 +93,8 @@ PlaceholderAPI via `getPlaceholders()`.
 If you do not need PAPI in your plugin:
 
 1. Delete the `core.placeholders` package.
-2. Remove the usage tracker wiring in `JTemplatePlugin`
-   (`setupStorageAndPlaceholders()` and the `CommandsRegistrar` argument).
+2. Remove the usage tracker wiring in `JGameModePlugin`
+   (`setupStorage()` and the `CommandsRegistrar` argument).
 3. Remove `PlaceholderAPI` from `paper-plugin.yml` (`dependencies`), or keep
    it if your messages use `%otherplugin_...%` placeholders.
 
@@ -95,12 +102,13 @@ If you do not need PAPI in your plugin:
 
 | Package | Key classes |
 | --- | --- |
-| `core.commands` | `CommandsRegistrar`, `UserCommandsRegistrar`, `AdminCommandsRegistrar`, `CommandContext`, `TemplatePermissions` |
+| `core.commands` | `CommandsRegistrar`, `UserCommandsRegistrar`, `AdminCommandsRegistrar`, `CommandContext`, `GameModePermissions` |
+| `core.commands.mode` | `GmCommand`, `DirectModeCommand`, `ToggleCommand`, `ModeCommandsRegistrar`, `GameModeExecutor`, `GameModeOption`, `ModeResolver`, `ModeSuggestions`, `ToggleHistory`, `GameUsageTracker` |
 | `core.commands.selectors` | `TargetSelector`, `SelectorSuggestions`, `ValueSuggestions` |
 | `core.commands.user` | `HelpCommand`, `HelpEntry`, `VersionCommand`, `AuthorFormatter` |
 | `core.configs` | `ConfigRegistrar`, `PluginConfig` |
 | `core.messages` | `MessageBootstrap`, `Messenger`, `MessageParser` |
 | `core.sounds` | `SoundPlayer`, `SoundsConfig` |
-| `core.placeholders` | `PlaceholdersBootstrap`, `CommandUsageTracker`, `UsageExpansion` |
+| `core.placeholders` | `PlaceholdersBootstrap`, `GameUsageTracker`, `GameUsageExpansion` |
 | `core.storage` | `StorageBootstrap`, `SqliteStorage` |
 | `core.update` | `UpdateCheckerBootstrap`, `UpdateCheckService`, `GitHubReleaseHttp`, `UpdateCheckNotifier`, `UpdateCheckJoinListener` |

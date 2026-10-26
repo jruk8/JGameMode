@@ -1,7 +1,7 @@
-site_name: JPaperTemplate
-site_description: A clean, buildable starting point for Paper plugins using Java 25 and Gradle.
-site_url: https://jruk8.github.io/JPaperTemplate/
-repo_url: https://github.com/jruk8/JPaperTemplate
+site_name: JGameMode
+site_description: Modern 26.x plugin for /gm s and /gmc.
+site_url: https://jruk8.github.io/JGameMode/
+repo_url: https://github.com/jruk8/JGameMode
 repo_name: GitHub
 
 theme:
@@ -9,7 +9,7 @@ theme:
   language: en
   custom_dir: overrides
   # No logo or favicon yet: brand art lives in jruk8/JResources, which has no
-  # JPaperTemplate assets. Add logo/favicon here plus extra.logo_light below
+  # JGameMode assets. Add logo/favicon here plus extra.logo_light below
   # once they exist; overrides/partials/logo.html already renders both marks.
   icon:
     repo: fontawesome/brands/github
@@ -61,7 +61,7 @@ nav:
   - Permissions: permissions.md
   - Configuration: configuration.md
   - Placeholders: placeholders.md
-  - Extending the Template: api.md
+  - Plugin API for developers: api.md
 
 extra:
   # No generator backlink in the footer (SEO: no third-party links).
