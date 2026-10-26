@@ -14,31 +14,27 @@
 2. Run **`/gm s`**.
 3. Toggle with **`/gmt`** (spectator and back, like F3+N).
 
-**That's it!** Modes resolve dynamically (`/gm creat`, `/gm 1`),
-targets use vanilla selectors (`/gmc Steve`, `/gm sp @a`), and
-`/jgm help` lists the rest.
+**That's it!** Try aliases (`/gm creat`, `/gm 1`) or
+vanilla selectors (`Steve`, `@a`). 
+
+**Next:** see config or run `/jgm help`.
 
 # Features
 
 - **Direct aliases** » `/gms`, `/gmc`, `/gma`, `/gmsp`, plus
-  `/gm s|c|a|sp` and the single-letter `/s`, `/c`, `/a`, `/sp` roots.
-- **Dynamic resolution** » full names, numbers and substrings
-  (`/gm tog` toggles); gibberish errors out.
-- **Spectator toggle** » `/gm`, `/gmt` and `/t` swap between spectator
-  and the last non-spectator mode, mirroring vanilla F3+N with
-  permission checks.
-- **Permission gating** » `use` master switch, opt-out per-mode nodes,
-  `self`/`other` scopes; tab completion only shows permitted modes and
-  selectors.
-- **Vanilla override** » optional 1:1 `/gamemode` replacement (toggle
-  and history included).
+  `/gm s|c|a|sp` and `/s`, `/c`, `/a`, `/sp`.
+- **Typo resolution** » Feeling lazy? Just type partially, like: `/gm spec`.
+- **F3+N-style switcher** » `/gm`, `/gmt` and `/t` switch between your last mode
+  and spectator.
+- **Vanilla expansion** » expands vanilla `/gamemode`.
+- **Full configurability** » toggle any aliases off or manage permissions.
 - **Also for serious deployment** » MiniMessage, sounds, PAPI placeholders
   (`%jgm_uses%`, `%jgm_toggle_uses%`, per-mode and global variants),
-  and an SQLite store for stats and toggle history.
+  and an SQLite store for history.
 
 ### Requirements
 
-- Server Software » [Paper 26.2+](https://papermc.io/downloads/paper) (Folia supported)
+- Server Software » [Paper 26.2+](https://papermc.io/downloads/paper) (**Folia🍃** supported)
 - Java Version » **Java 25**
 - Dependencies » **None** (PlaceholderAPI is optional, only for the
   `%jgm_...%` placeholders)
@@ -50,14 +46,11 @@ targets use vanilla selectors (`/gmc Steve`, `/gm sp @a`), and
 | `/gm [<mode>\|toggle] [targets]` | Set gamemode, or toggle without a mode. |
 | `/gms\|/gmc\|/gma\|/gmsp [targets]` | Switch directly to a gamemode. |
 | `/gmt [targets]` | Toggle spectator and back (alias `/t`). |
-| `/s\|/c\|/a\|/sp [targets]` | Single-letter shortcuts (when free). |
+| `/s\|/c\|/a\|/sp [targets]` | Single-letter shortcuts (unless other plugins override). |
 | `/gamemode [<mode>\|toggle] [targets]` | Vanilla gamemode through this plugin. |
 | `/jgamemode <help\|version\|reload>` | Help, version, and config reload (alias `/jgm`). |
 
-An omitted target means yourself; console must always name one. Modes
-accept names, shorthands, numbers and substrings; the toggle swaps with
-spectator. Full table and examples live in
-[commands.md](https://github.com/jruk8/JGameMode/blob/main/docs/commands.md).
+See the full [Commands Page](https://jruk8.github.io/JGameMode/commands/) for more info.
 
 # Permissions
 
@@ -71,7 +64,7 @@ spectator. Full table and examples live in
 | `jgamemode.self` | Switch your own gamemode. | Everyone |
 | `jgamemode.other` | Switch other players' gamemode. | OP |
 | `jgamemode.reload` | Use `/jgamemode reload`. | OP |
-| `jgamemode.help` | Use `/jgamemode help` (entries are permission-filtered). | Everyone |
+| `jgamemode.help` | Use `/jgamemode help`. | Everyone |
 | `jgamemode.version` | Use `/jgamemode version`. | Everyone |
 
 # Configuration
@@ -92,26 +85,14 @@ First start generates `config.yml`, `messages.yml` and `sounds.yml` in
 - `messages.yml` / `sounds.yml` » every message and the sound played
   for each feedback event.
 
-Every value is documented in [configuration.md](https://github.com/jruk8/JGameMode/blob/main/docs/configuration.md).
+See the full [Configuration Page](https://jruk8.github.io/JGameMode/configuration/) for more info.
 
-# Build
+# Links
 
-```shell
-./gradlew build            # macOS/Linux
-.\gradlew.bat build        # Windows
-```
+- [Documentation](https://jruk8.github.io/JFlySpeed/)
+- [Discord](https://discord.com/invite/hkWmCVmWDC)
+- [GitHub](https://github.com/jruk8/JFlySpeed)
 
-`build` runs the tests and both checkstyle tasks; the jar lands in
-`build/libs/`. Built with Java 25 and the
-[jruk8 plugin-conventions](https://github.com/jruk8/plugin-conventions).
+### Donate ☕
 
-### Links
-
-- [Documentation](https://jruk8.github.io/JGameMode/)
-- [GitHub](https://github.com/jruk8/JGameMode)
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/jruk8/JGameMode/blob/main/CONTRIBUTING.md).
-
-&copy; 2026 jruk8. Licensed under [AGPL-3.0](https://github.com/jruk8/JGameMode/blob/main/LICENSE).
+If you like my plugins, you can support my work through a [**small donation**](https://ko-fi.com/jruk). **Thanks!** 👐
