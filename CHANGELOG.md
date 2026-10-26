@@ -1,4 +1,42 @@
 # Changelog
+## [1.1.0] - 2026-10-26
+
+### Documentation
+
+- Add JGameMode banner
+
+> Replaces the template banner with the real 1280x640 JGameMode banner and references it from the README and docs landing pages.
+
+- Hook favicon and light/dark icons to the site
+
+> Adds the JGameMode favicon and header marks and wires theme logo, favicon and extra.logo_light, mirroring the sibling docs setup.
+
+- Update README.md
+
+- Update README.md
+
+- Update README.md
+
+- Update README.md
+
+- Discord announce, header buttons and page icons
+
+> Replaces the template announce with a Discord invite line, ports the stacked GitHub plus Join Discord header buttons with the search-after-sources layout, adds discord_url, shortens the nav to Plugin API, and adds Material page icons to every docs page.
+
+
+### Features
+
+- Chiseled bookshelf error cue
+
+> Error feedback uses block.chiseled_bookshelf.insert at 1.1 pitch and full volume.
+
+
+### Refactor
+
+- Rename namespace to com.jruk8.jgamemode
+
+> No traces of jtemplate or JTemplate remain: main and test packages, plugin group and main class coordinates, docs and agent references, and the shaded third-party prefix (now com.jruk8.jgamemode.libs) all use the new namespace.
+
 ## [1.1.0] - 2026-08-17
 
 ### Features
