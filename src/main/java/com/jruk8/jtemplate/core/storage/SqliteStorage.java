@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -160,6 +161,56 @@ public final class SqliteStorage implements AutoCloseable {
         } catch (SQLException e) {
             this.logger.log(Level.WARNING, "Failed to read player stat '" + key + "'", e);
             return 0;
+        }
+    }
+
+    /**
+     * Reads a per-player value, distinguishing absent from zero.
+     *
+     * @param key    the stat name
+     * @param player the player owning the value
+     * @return the current value, or empty when no row exists
+     */
+    public synchronized Optional<Integer> playerValue(String key, UUID player) {
+        if (!isReady()) {
+            return Optional.empty();
+        }
+        try (PreparedStatement statement = this.connection.prepareStatement(SELECT_PLAYER)) {
+            statement.setString(1, key);
+            statement.setString(2, player.toString());
+            try (ResultSet results = statement.executeQuery()) {
+                return results.next()
+                        ? Optional.of(results.getInt(1))
+                        : Optional.empty();
+            }
+        } catch (SQLException e) {
+            this.logger.log(Level.WARNING, "Failed to read player value '" + key + "'", e);
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Writes a per-player value, creating the row when absent.
+     *
+     * @param key    the stat name
+     * @param player the player owning the value
+     * @param value  the value to store
+     */
+    public synchronized void setPlayerValue(String key, UUID player, int value) {
+        if (!isReady()) {
+            return;
+        }
+        try {
+            executeUpdate(INSERT_OR_IGNORE_PLAYER, key, player.toString());
+            try (PreparedStatement statement = this.connection.prepareStatement(
+                    "UPDATE " + TABLE_PLAYER_STATS + " SET value = ? WHERE key = ? AND player = ?")) {
+                statement.setInt(1, value);
+                statement.setString(2, key);
+                statement.setString(3, player.toString());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            this.logger.log(Level.WARNING, "Failed to write player value '" + key + "'", e);
         }
     }
 

@@ -1,13 +1,16 @@
 package com.jruk8.jtemplate.core.commands.selectors;
 
 import com.jruk8.jtemplate.core.commands.CommandContext;
-import com.jruk8.jtemplate.core.commands.TemplatePermissions;
+import com.jruk8.jtemplate.core.commands.GameModePermissions;
 import com.jruk8.jtemplate.core.messages.MessagesConfig;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +21,7 @@ import java.util.function.Function;
  * <p>
  * An omitted selector means the executor themselves (console gets an error).
  * An explicit selector resolving to anyone but the sender additionally
- * requires {@code jtemplate.other}; a selector resolving only to the sender
+ * requires {@code jgamemode.other}; a selector resolving only to the sender
  * (e.g. {@code @s}) needs just the command's own permission.
  */
 public final class TargetSelector {
@@ -72,8 +75,8 @@ public final class TargetSelector {
             ctx.error(source, m -> m.getCore().getNoTargets(), Map.of());
             return Optional.empty();
         }
-        if (targetsOthers(source, targets) && !source.getSender().hasPermission(TemplatePermissions.OTHER)) {
-            var tags = Map.of("permission", TemplatePermissions.OTHER);
+        if (targetsOthers(source, targets) && !source.getSender().hasPermission(GameModePermissions.OTHER)) {
+            var tags = Map.of("permission", GameModePermissions.OTHER);
             ctx.error(source, m -> m.getCore().getNoPermission(), tags);
             return Optional.empty();
         }
@@ -85,5 +88,31 @@ public final class TargetSelector {
             return true;
         }
         return targets.stream().anyMatch(target -> !target.getUniqueId().equals(self.getUniqueId()));
+    }
+
+    /**
+     * Returns the tab-completion candidates for a target selector argument,
+     * gated by permission: without the {@code other} permission only the
+     * {@code @s} and own-name entries appear, and without the {@code self}
+     * permission those self entries are removed as well.
+     *
+     * @param source the command source completing the argument
+     * @param prefix the already-typed, lower-cased input used for filtering (may be null)
+     * @return the permitted selector candidates
+     */
+    public static List<String> suggestTargets(CommandSourceStack source, String prefix) {
+        CommandSender sender = source.getSender();
+        boolean other = sender.hasPermission(GameModePermissions.OTHER);
+        boolean self = sender.hasPermission(GameModePermissions.SELF);
+        String name = sender instanceof Player player ? player.getName() : "";
+        List<String> online = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            online.add(player.getName());
+        }
+        List<String> candidates = new ArrayList<>(SelectorSuggestions.suggest(other, name, online, prefix));
+        if (!self) {
+            candidates.removeIf(candidate -> candidate.equals("@s") || candidate.equals(name));
+        }
+        return candidates;
     }
 }
