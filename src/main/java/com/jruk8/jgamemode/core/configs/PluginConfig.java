@@ -12,11 +12,14 @@ import java.util.List;
 @Setter
 @SuppressWarnings("FieldMayBeFinal")
 @Header({
-        "################################",
-        "#          JGameMode         #",
-        "################################",
+        "#      ██╗ ██████╗  █████╗ ███╗   ███╗███████╗███╗   ███╗ ██████╗ ██████╗ ███████╗",
+        "#      ██║██╔════╝ ██╔══██╗████╗ ████║██╔════╝████╗ ████║██╔═══██╗██╔══██╗██╔════╝",
+        "#      ██║██║  ███╗███████║██╔████╔██║█████╗  ██╔████╔██║██║   ██║██║  ██║█████╗",
+        "# ██   ██║██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝",
+        "# ╚█████╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗",
+        "#  ╚════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝",
         "",
-        "# Modern 26.x plugin for /gm s and /gmc.",
+        "# 📦 Modern 26.x plugin for /gmc and /gm 0, with a F3+N-style switcher.",
         ""
 })
 public class PluginConfig extends OkaeriConfig {
@@ -25,10 +28,10 @@ public class PluginConfig extends OkaeriConfig {
     private UpdateChecker updateChecker = new UpdateChecker();
 
     @Comment({
-            "Extra labels for the /jgamemode root command (shortcuts like /jgm).",
+            "Extra labels for the /jgamemode root command (shortcuts like /jg).",
             "Applies on restart."
     })
-    private List<String> aliases = List.of("jgm");
+    private List<String> aliases = List.of("jgm", "jg");
 
     @Comment({
             "Routes vanilla /gamemode through this plugin: same targets plus",
@@ -87,19 +90,19 @@ public class PluginConfig extends OkaeriConfig {
         private Channel gm = new Channel(List.of());
 
         @Comment("Standalone /gms root command and its extra labels.")
-        private Channel survival = new Channel(List.of());
+        private Channel survival = new Channel(List.of("gm0"));
 
         @Comment("Standalone /gmc root command and its extra labels.")
-        private Channel creative = new Channel(List.of());
+        private Channel creative = new Channel(List.of("gm1"));
 
         @Comment("Standalone /gma root command and its extra labels.")
-        private Channel adventure = new Channel(List.of());
+        private Channel adventure = new Channel(List.of("gm2"));
 
         @Comment("Standalone /gmsp root command and its extra labels.")
-        private Channel spectator = new Channel(List.of());
+        private Channel spectator = new Channel(List.of("gm3"));
 
         @Comment("Standalone /gmt toggle root command and its extra labels.")
-        private Channel toggle = new Channel(List.of("t"));
+        private Channel toggle = new Channel(List.of());
     }
 
     @Getter

@@ -103,7 +103,7 @@ public class MessagesConfig extends OkaeriConfig {
     }
 
     @Comment("Prefix prepended to every message, trailing space included")
-    private String prefix = "<#a6a6a6>[<gradient:#f2e6a8:#edca3b><bold>J</bold>GameMode</gradient>]</#a6a6a6> ";
+    private String prefix = "<#a6a6a6>[<gradient:#edca3b:#f0d259><bold>J</bold>GameMode</gradient>]</#a6a6a6> ";
 
     @Comment("Core plugin messages")
     private Core core = new Core();
