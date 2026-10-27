@@ -1,4 +1,37 @@
 # Changelog
+## [1.2.0] - 2026-10-27
+
+### Bug Fixes
+
+- Keep a return ticket when switching directly to spectator
+
+> Seeds an empty toggle cache instead of leaving it blank, so the next
+> toggle returns to the previous mode rather than the permission fallback.
+> Existing tickets are still never overridden.
+
+
+### Documentation
+
+- Cover /t, /jg, /gm0-/gm3 and spectator seeding
+
+
+### Features
+
+- Add native /t toggle root
+
+> /t is now a standalone root and hub subcommand sharing the toggle
+> channel; a stale t alias can no longer collide with it.
+
+- Add /jg hub alias, /gm0-/gm3 defaults, banner and gradient
+
+> JFlyspeed-style ASCII banner plus tagline, /jg alongside /jgm, numeric
+> mode aliases out of the box, and the new gold prefix gradient.
+
+
+### Miscellaneous
+
+- Update for v1.1.0 [skip ci]
+
 ## [1.1.0] - 2026-10-26
 
 ### Documentation
