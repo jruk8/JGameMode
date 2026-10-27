@@ -1,4 +1,17 @@
 # Changelog
+## [1.3.0] - 2026-10-27
+
+### Features
+
+- Print a startup banner on enable
+
+> Brand-tinted title plus Modrinth, Discord and GitHub bullets.
+
+
+### Miscellaneous
+
+- Update for v1.2.0 [skip ci]
+
 ## [1.2.0] - 2026-10-27
 
 ### Bug Fixes
