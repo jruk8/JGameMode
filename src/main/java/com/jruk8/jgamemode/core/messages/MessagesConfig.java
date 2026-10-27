@@ -38,7 +38,7 @@ public class MessagesConfig extends OkaeriConfig {
                 + "{plain}Command label changes need a server restart.";
 
         @Comment("Help header (use {version})")
-        private String helpHeader = "\\n{prefix}{brand}JGameMode {version} help:";
+        private String helpHeader = "\\n{prefix}{brand}JGameMode {version} Help:";
 
         @Comment("One help entry (use {syntax} and {description})")
         private String helpEntryFormat = "{brand}» {hl}{syntax}{plain}: {description}";
