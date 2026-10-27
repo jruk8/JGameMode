@@ -13,6 +13,7 @@ import com.jruk8.jgamemode.core.sounds.SoundPlayer;
 import com.jruk8.jgamemode.core.storage.SqliteStorage;
 import com.jruk8.jgamemode.core.storage.StorageBootstrap;
 import com.jruk8.jgamemode.core.update.UpdateCheckerBootstrap;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -25,6 +26,8 @@ public final class JGameModePlugin extends JavaPlugin {
     public void onEnable() {
         // Set up all core modules
         setupCoreModules();
+        StartupBanner.print(
+                Bukkit.getConsoleSender()::sendMessage, getName(), getPluginMeta().getVersion());
     }
 
     @Override
