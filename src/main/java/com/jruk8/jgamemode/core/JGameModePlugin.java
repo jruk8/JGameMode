@@ -26,8 +26,6 @@ public final class JGameModePlugin extends JavaPlugin {
     public void onEnable() {
         // Set up all core modules
         setupCoreModules();
-        StartupBanner.print(
-                Bukkit.getConsoleSender()::sendMessage, getName(), getPluginMeta().getVersion());
     }
 
     @Override
@@ -62,7 +60,8 @@ public final class JGameModePlugin extends JavaPlugin {
                 configRegistrar.getPluginConfig(),
                 messenger,
                 configRegistrar.getMessagesConfig(),
-                logger
+                logger,
+                this::printBanner
         );
         updateChecker.register();
         reloader.register(updateChecker);
@@ -85,6 +84,14 @@ public final class JGameModePlugin extends JavaPlugin {
         boolean metricsEnabled = configRegistrar.getPluginConfig().getMetrics().isEnabled();
         var metricsBootstrap = new MetricsBootstrap(this, metricsEnabled);
         metricsBootstrap.register();
+    }
+
+    private void printBanner(boolean updateAvailable) {
+        StartupBanner.print(
+                Bukkit.getConsoleSender()::sendMessage,
+                getName(),
+                getPluginMeta().getVersion(),
+                updateAvailable);
     }
 
     private void setupCommands(

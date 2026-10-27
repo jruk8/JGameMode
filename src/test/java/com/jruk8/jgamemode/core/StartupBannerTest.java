@@ -14,7 +14,7 @@ class StartupBannerTest {
     @Test
     @DisplayName("should list modrinth, discord and github after the title")
     void shouldOrderLinks() {
-        List<String> lines = StartupBanner.lines("JGameMode", "1.0.0");
+        List<String> lines = StartupBanner.lines("JGameMode", "1.0.0", false);
 
         assertEquals(4, lines.size());
         assertEquals("\u00A76\u00A7lJGameMode \u00A78v1.0.0 \u00A77enabled", lines.get(0));
@@ -24,11 +24,21 @@ class StartupBannerTest {
     }
 
     @Test
+    @DisplayName("should flag pending updates on the title")
+    void shouldFlagUpdates() {
+        List<String> lines = StartupBanner.lines("JGameMode", "1.0.0", true);
+
+        assertEquals(
+                "\u00A76\u00A7lJGameMode \u00A78v1.0.0 \u00A77enabled \u00A7e(update available)",
+                lines.get(0));
+    }
+
+    @Test
     @DisplayName("should pad the banner with blank lines")
     void shouldPadBanner() {
         List<Component> sent = new ArrayList<>();
 
-        StartupBanner.print(sent::add, "JGameMode", "1.0.0");
+        StartupBanner.print(sent::add, "JGameMode", "1.0.0", false);
 
         assertEquals(8, sent.size());
         assertEquals(Component.empty(), sent.get(0));

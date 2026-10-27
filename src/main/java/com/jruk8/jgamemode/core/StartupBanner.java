@@ -32,11 +32,14 @@ public final class StartupBanner {
      *
      * @param name the running plugin name
      * @param version the running plugin version
+     * @param updateAvailable whether to flag a pending update on the title
      * @return the banner lines in legacy section colors
      */
-    public static List<String> lines(String name, String version) {
+    public static List<String> lines(String name, String version, boolean updateAvailable) {
+        String title = BRAND + "\u00A7l" + name + " \u00A78v" + version + " \u00A77enabled"
+                + (updateAvailable ? " \u00A7e(update available)" : "");
         return List.of(
-                BRAND + "\u00A7l" + name + " \u00A78v" + version + " \u00A77enabled",
+                title,
                 "\u00A78\u00BB \u00A77Modrinth: \u00A7f" + MODRINTH_URL,
                 "\u00A78\u00BB \u00A77Discord: \u00A7f" + DISCORD_URL,
                 "\u00A78\u00BB \u00A77GitHub: \u00A7f" + GITHUB_URL);
@@ -48,12 +51,13 @@ public final class StartupBanner {
      * @param console the console sink, usually the console sender
      * @param name the running plugin name
      * @param version the running plugin version
+     * @param updateAvailable whether to flag a pending update on the title
      */
-    public static void print(Consumer<Component> console, String name, String version) {
+    public static void print(Consumer<Component> console, String name, String version, boolean updateAvailable) {
         for (int index = 0; index < PADDING_LINES; index++) {
             console.accept(Component.empty());
         }
-        for (String line : lines(name, version)) {
+        for (String line : lines(name, version, updateAvailable)) {
             console.accept(LegacyComponentSerializer.legacySection().deserialize(line));
         }
         for (int index = 0; index < PADDING_LINES; index++) {

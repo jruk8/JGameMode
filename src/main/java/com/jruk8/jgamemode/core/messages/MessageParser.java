@@ -77,11 +77,15 @@ public final class MessageParser {
         if (colors == null) {
             return text;
         }
-        return text
+        text = text
                 .replace("{plain}", colors.getPlainColor())
                 .replace("{brand}", colors.getBrandColor())
                 .replace("{hl}", colors.getHighlightColor())
                 .replace("{error}", colors.getErrorColor());
+        for (Map.Entry<String, String> link : PluginLinks.placeholders().entrySet()) {
+            text = text.replace(link.getKey(), link.getValue());
+        }
+        return text;
     }
 
     private boolean isPapiEnabled() {
