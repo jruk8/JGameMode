@@ -75,6 +75,8 @@ public class HelpCommand {
                         "Switches directly to a gamemode.", GameModePermissions.USE),
                 new HelpEntry("/gmt [targets]",
                         "Toggles between spectator and the last mode.", GameModePermissions.USE),
+                new HelpEntry("/t [targets]",
+                        "Toggles between spectator and the last mode.", GameModePermissions.USE),
                 new HelpEntry("/gamemode [<mode>|toggle] [targets]",
                         "Vanilla gamemode through this plugin.", GameModePermissions.USE),
                 new HelpEntry("/jgm reload", "Reloads the plugin configuration.", GameModePermissions.RELOAD));

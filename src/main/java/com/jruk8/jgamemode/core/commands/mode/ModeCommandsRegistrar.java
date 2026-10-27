@@ -75,6 +75,9 @@ public class ModeCommandsRegistrar implements Bootstrap {
         for (String alias : hubAliases(channel().getToggle().getAliases(), used)) {
             root.then(toggle.node(alias));
         }
+        if (used.add("t")) {
+            root.then(toggle.node("t"));
+        }
     }
 
     /**
@@ -87,6 +90,7 @@ public class ModeCommandsRegistrar implements Bootstrap {
     public void registerStandalone(Commands registrar, List<String> hubLabels) {
         var taken = new HashSet<>(hubLabels);
         taken.addAll(HUB_COMMANDS);
+        taken.add("t");
         if (channel().getGm().isEnabled()) {
             registerRoot(registrar, new GmCommand(ctx, exec).node("gm").build(),
                     "JGameMode gm command", channelAliases(channel().getGm().getAliases(), taken));
@@ -100,6 +104,8 @@ public class ModeCommandsRegistrar implements Bootstrap {
         registerChannelRoot(registrar, "gmsp", GameModeOption.SPECTATOR,
                 channel().getSpectator(), taken);
         if (channel().getToggle().isEnabled()) {
+            registerRoot(registrar, new ToggleCommand(ctx, exec).node("t").build(),
+                    "JGameMode t command", List.of());
             registerRoot(registrar, new ToggleCommand(ctx, exec).node("gmt").build(),
                     "JGameMode toggle command", channelAliases(channel().getToggle().getAliases(), taken));
         }
