@@ -42,16 +42,20 @@ public final class ToggleHistory {
 
     /**
      * Records a direct switch, caching the previous mode when both ends are
-     * storable. Switches to spectator never touch the cache, so a stored
-     * return ticket survives spectating; same-mode switches and switches
-     * from spectator leave the cache alone.
+     * storable. Switching to spectator never overrides a stored return
+     * ticket, but seeds an empty cache so the next toggle has somewhere to
+     * go; same-mode switches and switches from spectator leave the cache
+     * alone.
      *
      * @param player   the player that switched
      * @param previous the gamemode they switched from
      * @param current  the gamemode they switched to
      */
     public void recordSwitch(UUID player, GameMode previous, GameMode current) {
-        if (previous == current || previous == GameMode.SPECTATOR || current == GameMode.SPECTATOR) {
+        if (previous == current || previous == GameMode.SPECTATOR) {
+            return;
+        }
+        if (current == GameMode.SPECTATOR && lastMode(player).isPresent()) {
             return;
         }
         storage.setPlayerValue(HISTORY_KEY, player, previous.getValue());

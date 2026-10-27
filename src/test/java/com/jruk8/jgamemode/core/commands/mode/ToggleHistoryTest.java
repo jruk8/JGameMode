@@ -65,12 +65,20 @@ class ToggleHistoryTest {
     }
 
     @Test
-    @DisplayName("should never cache direct switches to spectator")
-    void shouldIgnoreSwitchesToSpectator() {
+    @DisplayName("should seed an empty cache on a direct switch to spectator")
+    void shouldSeedEmptyCacheOnSwitchToSpectator() {
         history.recordSwitch(player, GameMode.SURVIVAL, GameMode.SPECTATOR);
+
+        assertEquals(GameMode.SURVIVAL, history.lastMode(player).orElseThrow());
+    }
+
+    @Test
+    @DisplayName("should never override a stored ticket on a direct switch to spectator")
+    void shouldIgnoreSwitchesToSpectator() {
+        history.recordSwitch(player, GameMode.SURVIVAL, GameMode.CREATIVE);
         history.recordSwitch(player, GameMode.ADVENTURE, GameMode.SPECTATOR);
 
-        assertTrue(history.lastMode(player).isEmpty());
+        assertEquals(GameMode.SURVIVAL, history.lastMode(player).orElseThrow());
     }
 
     @Test
