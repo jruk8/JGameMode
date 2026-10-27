@@ -1,4 +1,15 @@
 # Changelog
+## [1.4.0] - 2026-10-27
+
+### Features
+
+- Static link buttons, new update notice and banner flag
+
+
+### Miscellaneous
+
+- Update for v1.3.0 [skip ci]
+
 ## [1.3.0] - 2026-10-27
 
 ### Features
