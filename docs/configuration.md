@@ -17,6 +17,7 @@ updateChecker:
   enabled: true
 aliases:
   - jgm
+  - jg
 overrideVanillaCommand: true
 storage:
   dbFile: jgamemode.db
@@ -26,20 +27,23 @@ commands:
     aliases: []
   survival:
     enabled: true
-    aliases: []
+    aliases:
+      - gm0
   creative:
     enabled: true
-    aliases: []
+    aliases:
+      - gm1
   adventure:
     enabled: true
-    aliases: []
+    aliases:
+      - gm2
   spectator:
     enabled: true
-    aliases: []
+    aliases:
+      - gm3
   toggle:
     enabled: true
-    aliases:
-      - t
+    aliases: []
 singles:
   enabled: true
 colors:
@@ -61,10 +65,10 @@ metrics:
 
 ### `aliases`
 
-Extra labels for the `/jgamemode` hub command (`/jgm` works out of the
-box). Running the hub with no arguments shows the help listing. Blanks,
-duplicates and the `jgamemode` label itself are ignored. Applies on
-restart; `/jgamemode reload` reports when a restart is needed.
+Extra labels for the `/jgamemode` hub command (`/jgm` and `/jg` work out
+of the box). Running the hub with no arguments shows the help listing.
+Blanks, duplicates and the `jgamemode` label itself are ignored. Applies
+on restart; `/jgamemode reload` reports when a restart is needed.
 
 ### `overrideVanillaCommand`
 
@@ -82,12 +86,12 @@ restart; `/jgamemode reload` reports when a restart is needed.
 ### `commands`
 
 Each channel has an `enabled` toggle registering (or hiding) its
-standalone root command (`gm`, `gms`, `gmc`, `gma`, `gmsp`, `gmt`), plus
-`aliases` » extra labels for that root (the toggle root answers to `/t`
-by default). The `/jgamemode` subcommands always exist. Aliases colliding
-with a hub label, a subcommand or another alias are ignored. Changes take
-effect after a restart; `/jgamemode reload` reports when a restart is
-needed.
+standalone root command (`gm`, `gms`, `gmc`, `gma`, `gmsp`, `gmt`, plus
+the native `/t` toggle root), plus `aliases` » extra labels for that root
+(`gm0`-`gm3` answer to the matching mode root by default). The
+`/jgamemode` subcommands always exist. Aliases colliding with a hub label,
+a subcommand or another alias are ignored. Changes take effect after a
+restart; `/jgamemode reload` reports when a restart is needed.
 
 ### `singles`
 

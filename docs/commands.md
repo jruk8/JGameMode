@@ -17,8 +17,10 @@ and the mode (`jgamemode.use.<mode>`) permissions.
 | `/gma [targets]` | Switch to adventure. | `jgamemode.use` |
 | `/gmsp [targets]` | Switch to spectator. | `jgamemode.use` |
 | `/gmt [targets]` | Toggle spectator and back. | `jgamemode.use` |
+| `/t [targets]` | Toggle spectator and back (native root). | `jgamemode.use` |
+| `/gm0\|/gm1\|/gm2\|/gm3 [targets]` | Switch directly by numeric id. | `jgamemode.use` |
 | `/gamemode [<mode>\|toggle] [targets]` | Vanilla gamemode through this plugin. | `jgamemode.use` |
-| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (alias `/jgm`). | — |
+| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (aliases `/jgm`, `/jg`). | — |
 
 The single-letter roots `/s`, `/c`, `/a` and `/sp` switch directly when
 their label is free (see [configuration.md](configuration.md)).
@@ -33,7 +35,8 @@ their label is free (see [configuration.md](configuration.md)).
   then adventure, by permission.
 - **History** is stored per player in the database (only this plugin's
   switches count) and survives restarts. Switching directly to spectator
-  never touches it.
+  never overrides a stored ticket, but seeds an empty cache so the next
+  toggle has somewhere to go.
 
 Direct examples: `/gmc`, `/gm sp Steve`, `/gm tog @a`, `/gamemode 1`.
 

@@ -45,10 +45,11 @@ vanilla selectors (`Steve`, `@a`).
 | --- | --- |
 | `/gm [<mode>\|toggle] [targets]` | Set gamemode, or toggle without a mode. |
 | `/gms\|/gmc\|/gma\|/gmsp [targets]` | Switch directly to a gamemode. |
-| `/gmt [targets]` | Toggle spectator and back (alias `/t`). |
+| `/gmt [targets]` | Toggle spectator and back. |
+| `/t [targets]` | Toggle spectator and back (native root). |
 | `/s\|/c\|/a\|/sp [targets]` | Single-letter shortcuts (unless other plugins override). |
 | `/gamemode [<mode>\|toggle] [targets]` | Vanilla gamemode through this plugin. |
-| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (alias `/jgm`). |
+| `/jgamemode <help\|version\|reload>` | Help, version, and config reload (aliases `/jgm`, `/jg`). |
 
 See the full [Commands Page](https://jruk8.github.io/JGameMode/commands/) for more info.
 
